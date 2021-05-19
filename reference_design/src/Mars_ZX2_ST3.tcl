@@ -86,10 +86,10 @@ set_property -dict {PACKAGE_PIN U14   IOSTANDARD LVCMOS25  } [get_ports {IO1_CLK
 
 # CLK33
 if {$Zynq == "Z7020"} {
-create_clock -name CLK33 -period 30.000 [get_ports {CLK33}]
+  create_clock -name CLK33 -period 30.000 [get_ports {CLK33}]
 }
 if {$Zynq == "Z7020"} {
-set_property -dict {PACKAGE_PIN Y7    IOSTANDARD LVCMOS25  } [get_ports {CLK33}]
+  set_property -dict {PACKAGE_PIN Y7    IOSTANDARD LVCMOS25  } [get_ports {CLK33}]
 }
 
 # DP
@@ -104,7 +104,7 @@ set_property -dict {PACKAGE_PIN T17   IOSTANDARD LVCMOS25  } [get_ports {DP_LANE
 
 # ETH_LED
 if {$Zynq == "Z7020"} {
-set_property -dict {PACKAGE_PIN V5    IOSTANDARD LVCMOS25  } [get_ports {ETH_LED2_N}]
+  set_property -dict {PACKAGE_PIN V5    IOSTANDARD LVCMOS25  } [get_ports {ETH_LED2_N}]
 }
 
 # HDMI
@@ -121,9 +121,9 @@ set_property -dict {PACKAGE_PIN J20   IOSTANDARD LVCMOS25  } [get_ports {HDMI_CL
 
 # I2C_PL
 if {$Zynq == "Z7020"} {
-set_property -dict {PACKAGE_PIN Y6    IOSTANDARD LVCMOS25  } [get_ports {I2C_INT_N}]
-set_property -dict {PACKAGE_PIN V8    IOSTANDARD LVCMOS25  } [get_ports {I2C_SCL_LS}]
-set_property -dict {PACKAGE_PIN W8    IOSTANDARD LVCMOS25  } [get_ports {I2C_SDA_LS}]
+  set_property -dict {PACKAGE_PIN Y6    IOSTANDARD LVCMOS25  } [get_ports {I2C_INT_N}]
+  set_property -dict {PACKAGE_PIN V8    IOSTANDARD LVCMOS25  } [get_ports {I2C_SCL_LS}]
+  set_property -dict {PACKAGE_PIN W8    IOSTANDARD LVCMOS25  } [get_ports {I2C_SDA_LS}]
 }
 
 # IO_2
