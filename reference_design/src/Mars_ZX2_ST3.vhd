@@ -78,8 +78,8 @@ entity Mars_ZX2_ST3 is
     IO0_D19_N                      : inout   std_logic;
     IO0_D20_P                      : inout   std_logic;
     IO0_D21_N                      : inout   std_logic;
-    IO0_D22_P                      : inout   std_logic;
-    IO0_D23_N                      : inout   std_logic;
+    IO0_D22_MIPI_D0LP_P            : inout   std_logic;
+    IO0_D23_MIPI_D0LP_N            : inout   std_logic;
     IO0_CLK_N                      : inout   std_logic;
     IO0_CLK_P                      : inout   std_logic;
     
@@ -128,7 +128,7 @@ entity Mars_ZX2_ST3 is
     ETH_LED2_N                     : inout   std_logic; -- Only available on Z7020 modules
     
     -- HDMI
-    HDMI_CEC                       : inout   std_logic;
+    HDMI_CEC_WDI                   : inout   std_logic;
     HDMI_HPD                       : inout   std_logic;
     HDMI_D0_N                      : inout   std_logic;
     HDMI_D0_P                      : inout   std_logic;
@@ -141,8 +141,12 @@ entity Mars_ZX2_ST3 is
     
     -- I2C_PL
     I2C_INT_N                      : in      std_logic; -- Only available on Z7020 modules
-    I2C_SCL_LS                     : inout   std_logic; -- Only available on Z7020 modules
-    I2C_SDA_LS                     : inout   std_logic; -- Only available on Z7020 modules
+    I2C_SCL                        : inout   std_logic; -- Only available on Z7020 modules
+    I2C_SDA                        : inout   std_logic; -- Only available on Z7020 modules
+    
+    -- I2C_USER
+    I2C_USER_SCL                   : inout   std_logic;
+    I2C_USER_SDA                   : inout   std_logic;
     
     -- IO_2
     IO2_D0_P                       : inout   std_logic;
@@ -173,10 +177,6 @@ entity Mars_ZX2_ST3 is
     MIPI_D1_P                      : inout   std_logic;
     MIPI_CLK_N                     : inout   std_logic;
     MIPI_CLK_P                     : inout   std_logic;
-    
-    -- ST3_I2C
-    I2C_SCL_FPGA                   : inout   std_logic;
-    I2C_SDA_FPGA                   : inout   std_logic;
     
     -- USB3
     USBH_SSRX_N                    : inout   std_logic;
@@ -298,9 +298,9 @@ begin
   LED1_N_PL <= '0' when LED_N(0) = '0' else 'Z';
   LED2_N_PL <= '0' when LED_N(1) = '0' else 'Z';
   LED3_N_PL <= '0' when LED_N(2) = '0' else 'Z';
-  I2C_SDA_FPGA  <= IIC_1_sda_o when IIC_1_sda_t = '0' else 'Z';
-  IIC_1_sda_i <= I2C_SDA_FPGA;
-  I2C_SCL_FPGA <= IIC_1_scl_o when IIC_1_scl_t = '0' else 'Z';
-  IIC_1_scl_i <= I2C_SCL_FPGA;
+  I2C_USER_SDA  <= IIC_1_sda_o when IIC_1_sda_t = '0' else 'Z';
+  IIC_1_sda_i <= I2C_USER_SDA;
+  I2C_USER_SCL <= IIC_1_scl_o when IIC_1_scl_t = '0' else 'Z';
+  IIC_1_scl_i <= I2C_USER_SCL;
 
 end rtl;
