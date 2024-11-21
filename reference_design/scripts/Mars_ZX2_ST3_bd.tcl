@@ -1,5 +1,5 @@
-# ----------------------------------------------------------------------------------
-# Copyright (c) 2022 by Enclustra GmbH, Switzerland.
+# ----------------------------------------------------------------------------------------------------
+# Copyright (c) 2024 by Enclustra GmbH, Switzerland.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this hardware, software, firmware, and associated documentation files (the
@@ -17,7 +17,7 @@
 # HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # PRODUCT OR THE USE OR OTHER DEALINGS IN THE PRODUCT.
-# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------
 
 create_bd_design $module
 
@@ -60,6 +60,11 @@ set_property -dict [ list \
 ] [get_bd_cells processing_system7]
 
 create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset ps_sys_rst
+
+create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat interrupts
+set_property -dict [ list \
+  CONFIG.NUM_PORTS {1} \
+] [get_bd_cells interrupts]
 set_property -dict [ list \
   CONFIG.PCW_UIPARAM_DDR_FREQ_MHZ {533} \
   CONFIG.PCW_UIPARAM_DDR_DQS_TO_CLK_DELAY_0 {-0.012} \
@@ -93,6 +98,8 @@ set_property -dict [ list \
   CONFIG.PCW_MIO_25_SLEW {fast} \
   CONFIG.PCW_MIO_26_SLEW {fast} \
   CONFIG.PCW_MIO_27_SLEW {fast} \
+  CONFIG.PCW_USE_FABRIC_INTERRUPT {1} \
+  CONFIG.PCW_IRQ_F2P_INTR {1} \
 ] [get_bd_cells processing_system7]
 set_property -dict [ list \
   CONFIG.PCW_I2C1_PERIPHERAL_ENABLE {1} \
@@ -111,6 +118,8 @@ set FIXED_IO [ create_bd_intf_port -mode Master -vlnv xilinx.com:display_process
 connect_bd_intf_net [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7/FIXED_IO]
 set DDR [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:ddrx_rtl:1.0 DDR ]
 connect_bd_intf_net [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7/DDR]
+connect_bd_net [get_bd_pins interrupts/dout] [get_bd_pins processing_system7/IRQ_F2P]
+connect_bd_net [get_bd_pins xadc_wiz/ip2intc_irpt] [get_bd_pins interrupts/In0]
 set IIC_USER [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 IIC_USER ]
 connect_bd_intf_net [get_bd_intf_ports IIC_USER] [get_bd_intf_pins processing_system7/IIC_1]
 

@@ -1,5 +1,5 @@
-# ----------------------------------------------------------------------------------
-# Copyright (c) 2022 by Enclustra GmbH, Switzerland.
+# ----------------------------------------------------------------------------------------------------
+# Copyright (c) 2024 by Enclustra GmbH, Switzerland.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this hardware, software, firmware, and associated documentation files (the
@@ -17,8 +17,10 @@
 # HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # PRODUCT OR THE USE OR OTHER DEALINGS IN THE PRODUCT.
-# ----------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------
 
+set_property CFGBVS VCCO [current_design]
+set_property CONFIG_VOLTAGE 2.5 [current_design]
 set_property BITSTREAM.CONFIG.OVERTEMPPOWERDOWN ENABLE [current_design]
  
 # ----------------------------------------------------------------------------------
@@ -85,9 +87,6 @@ set_property -dict {PACKAGE_PIN U15   IOSTANDARD LVCMOS25  } [get_ports {IO1_CLK
 set_property -dict {PACKAGE_PIN U14   IOSTANDARD LVCMOS25  } [get_ports {IO1_CLK_P}]
 
 # 33 MHz user clock
-if {$Zynq == "Z7020"} {
-  create_clock -name CLK33 -period 30.000 [get_ports {CLK33}]
-}
 if {$Zynq == "Z7020"} {
   set_property -dict {PACKAGE_PIN Y7    IOSTANDARD LVCMOS25  } [get_ports {CLK33}]
 }
@@ -160,6 +159,16 @@ set_property -dict {PACKAGE_PIN K19   IOSTANDARD LVCMOS25  } [get_ports {MIPI_D1
 set_property -dict {PACKAGE_PIN H18   IOSTANDARD LVCMOS25  } [get_ports {MIPI_CLK_N}]
 set_property -dict {PACKAGE_PIN J18   IOSTANDARD LVCMOS25  } [get_ports {MIPI_CLK_P}]
 
+# SDIO
+if {$Zynq == "Z7020"} {
+  set_property -dict {PACKAGE_PIN W10   IOSTANDARD LVCMOS25  } [get_ports {SDIO_CLK}]
+  set_property -dict {PACKAGE_PIN W9    IOSTANDARD LVCMOS25  } [get_ports {SDIO_CMD}]
+  set_property -dict {PACKAGE_PIN W11   IOSTANDARD LVCMOS25  } [get_ports {SDIO_D0}]
+  set_property -dict {PACKAGE_PIN Y11   IOSTANDARD LVCMOS25  } [get_ports {SDIO_D1}]
+  set_property -dict {PACKAGE_PIN Y9    IOSTANDARD LVCMOS25  } [get_ports {SDIO_D2}]
+  set_property -dict {PACKAGE_PIN Y8    IOSTANDARD LVCMOS25  } [get_ports {SDIO_D3}]
+}
+
 # USB3
 set_property -dict {PACKAGE_PIN T10   IOSTANDARD LVCMOS25  } [get_ports {USBH_SSRX_N}]
 set_property -dict {PACKAGE_PIN T11   IOSTANDARD LVCMOS25  } [get_ports {USBH_SSRX_P}]
@@ -167,5 +176,5 @@ set_property -dict {PACKAGE_PIN W16   IOSTANDARD LVCMOS25  } [get_ports {USBH_SS
 set_property -dict {PACKAGE_PIN V16   IOSTANDARD LVCMOS25  } [get_ports {USBH_SSTX_P}]
 
 # User Oscillator
-set_property -dict {PACKAGE_PIN U19   IOSTANDARD LVCMOS25  } [get_ports {OSC_N}]
-set_property -dict {PACKAGE_PIN U18   IOSTANDARD LVCMOS25  } [get_ports {OSC_P}]
+set_property -dict {PACKAGE_PIN U19   IOSTANDARD LVDS_25   } [get_ports {OSC_N}]
+set_property -dict {PACKAGE_PIN U18   IOSTANDARD LVDS_25   } [get_ports {OSC_P}]
